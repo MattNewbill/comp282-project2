@@ -76,7 +76,7 @@ public class Driver2 {
 		
 		System.out.print("The reachable rooms are: ");
 		
-		while(!visited.isEmpty() || (!remaining.isEmpty())) { //while there are items still to be visited
+		while(!visited.isEmpty()) { //while there are items still to be visited
 			//System.out.print("here!");
 			ArrayList<Integer> adjacentRooms = theRooms[visited.peekLast()].getValidDoors();
 			ArrayList<Integer> adjacentRooms2 = removeAdjacent(adjacentRooms, remaining); 
