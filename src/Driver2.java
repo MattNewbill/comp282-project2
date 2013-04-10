@@ -128,10 +128,11 @@ public class Driver2 {
 				}
 			}
 		}
-		for(int i = 0; i < temp.size(); i++) {
+		for(int i = 0; i < temp.size() - 1; i++) {
 			System.out.print(temp.get(i) + ", ");
 		}
-		System.out.println(".");
+		System.out.println(temp.get(temp.size() - 1) + ".");
+		//System.out.println(".");
 	}
 	
 	private static void initializeRemainingRooms(ArrayList<Integer> remaining) {
