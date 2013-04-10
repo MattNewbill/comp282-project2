@@ -48,7 +48,7 @@ public class Room {
 	nextRoom = (i+k>=0 && i<k*k) ? i+k : -1;
 	adjacentDoors[4] = new Door(i, nextRoom, Math.abs(i-nextRoom));
 	//sets bottom right door
-	nextRoom = (i+k+1>=0 && i<k*k && (i+1)%k!=0) ? i+k+1 : -1;
+	nextRoom = (i+1>=0 && i<k*k && (i+1)%k!=0) ? i+1 : -1;
 	adjacentDoors[5] = new Door(i, nextRoom, Math.abs(i-nextRoom));
     }
     /*
