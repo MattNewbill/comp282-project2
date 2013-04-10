@@ -6,48 +6,76 @@
  * Spring 2013
  * Driver2 Class
  */
+import java.io.*;
 import java.util.*;
 public class Driver2 {
-	private Scanner screen; 
-	private int k;
+	/* Global fields */
+	private static Scanner screen; 
+	private static Room theRooms[];
+	private static int k;
 	
-	public Driver2(){
-		screen = new Scanner(System.in);
-	}
-	
-	public static void main(String[] args){
-		Driver2 driver = new Driver2();
+	public static void main(String[] args) throws FileNotFoundException{
 		System.out.println("Welcome to castle helper.\n");
-		driver.readFile();
-		driver.calculateReachableRooms();
-		driver.calculateMinWorkToOpenAllRooms();
-		driver.calculateTotalSpookiness();
-		driver.calculateMaxSpookiness();
-	}
-
-	private void readFile() {
-		// TODO Auto-generated method stub
+		File inputFile = new File("sample.txt");
+		screen = new Scanner(inputFile);
+		initializeSpookiness();
+		blockedDoors();
 		
 	}
 
-	private void calculateMaxSpookiness() {
-		// TODO Auto-generated method stub
+	/** Read (from the data file) and set the spookiness for each room */
+	private static void initializeSpookiness() {
+		String tempSize = screen.nextLine(); //pull out K from file
+		tempSize = tempSize.trim();
+		k = Integer.parseInt(tempSize);
 		
+		theRooms = new Room[k * k];  //Intialize array of Room
+		for(int i = 0; i < theRooms.length; i++) {
+			String tempSpookiness = screen.nextLine();
+			tempSpookiness = tempSpookiness.trim();
+			int spookiness = Integer.parseInt(tempSpookiness);
+			theRooms[i] = new Room(spookiness, i, k);
+		}
 	}
-
-	private void calculateTotalSpookiness() {
-		// TODO Auto-generated method stub
+	
+	/** Remove the blocked off doorways */
+	private static void blockedDoors() {
+		while(screen.hasNext()) {
+			String tempBlockedDoor = screen.nextLine();
+			String[] temp = tempBlockedDoor.split("\\s+");
+			int firstDoor = Integer.parseInt(temp[0]);
+			int secondDoor = Integer.parseInt(temp[1]);
+			theRooms[firstDoor].removeDoor(secondDoor);
+			theRooms[secondDoor].removeDoor(firstDoor);
+		}
+	}
+	
+	private static void calculateReachableRooms() {
+		Queue<Integer> visited = new Queue<Integer>();
 		
-	}
-
-	private void calculateMinWorkToOpenAllRooms() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void calculateReachableRooms() {
-		// TODO Auto-generated method stub
 		System.out.println("The reachable rooms are: " + ".\n");
+	}
+	
+	private static void calculateMinWorkToOpenAllRooms() {
+		int n = 0;
+		
+		System.out.println("The minimum amount of work necessary to open " +
+						   "doors so that all rooms are accessable is: " + n);
+		
+	}
+	
+	private static void calculateMinWorkBetweenTwoRooms() {
+		
+	}
+	
+	private static void calculateTotalSpookiness() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void calculateMaxSpookiness() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
