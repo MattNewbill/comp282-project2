@@ -3,7 +3,7 @@
  * @author Matt Hamersky
  * Comp 282 
  * Project 2
- * Spring 2013'
+ * Spring 2013
  * Driver2 Class
  */
 import java.util.*;
