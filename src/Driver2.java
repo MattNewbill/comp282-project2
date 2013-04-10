@@ -26,7 +26,7 @@ public class Driver2 {
 		screen = new Scanner(inputFile);
 		initializeSpookiness();
 		blockedDoors();
-		//calculateReachableRooms();
+		calculateReachableRooms();
 		calculateMinWorkToOpenAllRooms();
 		calculateMinWorkBetweenTwoRooms();
 		calculateTotalSpookiness();
@@ -77,11 +77,12 @@ public class Driver2 {
 		System.out.print("The reachable rooms are: ");
 		
 		while(!visited.isEmpty() || (!remaining.isEmpty())) { //while there are items still to be visited
-			ArrayList<Integer> adjacentRooms = theRooms[visited.peek()].getValidDoors();
+			//System.out.print("here!");
+			ArrayList<Integer> adjacentRooms = theRooms[visited.peekLast()].getValidDoors();
 			ArrayList<Integer> adjacentRooms2 = removeAdjacent(adjacentRooms, remaining); 
 			addAdjacent(adjacentRooms2, visited);
-			processed.add(visited.peek()); //the first visited room is now finished
-			visited.remove(); //delete the first visited from "visited"
+			processed.add(visited.peekLast()); //the first visited room is now finished
+			visited.removeLast(); //delete the first visited from "visited"
 		}
 		printProcessedRooms(processed);
 	}
@@ -94,7 +95,7 @@ public class Driver2 {
 	private static void addAdjacent(ArrayList<Integer> adjacent, 
 									ArrayDeque<Integer> visited) {
 		for(int i = 0; i < adjacent.size(); i++) {
-			visited.push(i);
+			visited.push(adjacent.get(i));
 		}
 	}
 	
@@ -103,8 +104,9 @@ public class Driver2 {
 		for(int i = 0; i < adjacent.size(); i++) {
 			for(int j = 0; j < remaining.size(); j++) {
 				if(adjacent.get(i) == remaining.get(j)) {
-					temp.add(i);
-					continue;
+					temp.add(adjacent.get(i));
+					remaining.remove(j);
+					break;
 				}
 			}
 		}
@@ -122,6 +124,7 @@ public class Driver2 {
 			for(int j = 0; j < processed.size(); j++) {
 				if((i != j) && (processed.get(i) != processed.get(j))) {
 					temp.add(processed.get(i));
+					break;
 				}
 			}
 		}
