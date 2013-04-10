@@ -111,6 +111,15 @@ public class Room {
 	return result;
     }
     
+    public PriorityQueue<Integer> getCheapestDoor() {
+	PriorityQueue<Integer> result = new PriorityQueue<Integer>();
+	for(int i = 0; i<6;i++)
+	    if(adjacentDoors[i].getTo() != -1)
+		result.add(adjacentDoors[i].getTo());
+	return result;
+		
+    }
+    
     /*
      * Setters
      */
