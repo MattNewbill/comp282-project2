@@ -1,3 +1,11 @@
+/*
+ * ALGORITHM FOR MIN SPANNING TREE
+ * 1. eliminate paths to rooms that have already been prcessed
+ * 2. check if avail is empty
+ * 3. find cheapest in avail
+ * 4. add cheapest to processed and add adjacent doors to avail
+ */
+
 /**
  * @author Matt Newbill
  * @author Matt Hamersky
