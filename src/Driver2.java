@@ -128,6 +128,7 @@ public class Driver2 {
 				}
 			}
 		}
+		Collections.sort(temp);
 		for(int i = 0; i < temp.size() - 1; i++) {
 			System.out.print(temp.get(i) + ", ");
 		}
