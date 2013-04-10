@@ -13,6 +13,7 @@ public class Driver2 {
 	/* Global fields */
 	private static Scanner screen; 
 	private static Room theRooms[];
+	private static ArrayList<Integer> processedRooms;
 	private static int k;
 	
 	/**
@@ -88,6 +89,16 @@ public class Driver2 {
 	}
 	
 	/**
+	 * Fills the "remaining" array list with all the nodes except the entrance.
+	 * @param remaining
+	 */
+	private static void initializeRemainingRooms(ArrayList<Integer> remaining) {
+		for(int i = 1; i < (k * k); i++) {
+			remaining.add(i);
+		}
+	}
+	
+	/**
 	 * Adds the array of adjacent rooms into the "visited" queue
 	 * @param adjacent
 	 * @param visited
@@ -99,6 +110,12 @@ public class Driver2 {
 		}
 	}
 	
+	/**
+	 * Removes the nodes that are adjacent from the remaining nodes
+	 * @param adjacent
+	 * @param remaining
+	 * @return
+	 */
 	private static ArrayList<Integer> removeAdjacent(ArrayList<Integer> adjacent, ArrayList<Integer> remaining) {
 		ArrayList<Integer> temp = new ArrayList<Integer>();
 		for(int i = 0; i < adjacent.size(); i++) {
@@ -121,29 +138,23 @@ public class Driver2 {
 	private static void printProcessedRooms(ArrayList<Integer> processed) {
 		ArrayList<Integer> temp = new ArrayList<Integer>();
 		for(int i = 0; i < processed.size(); i++) {
-			for(int j = 0; j < processed.size(); j++) {
+			for(int j = 0; j < processed.size(); j++) { //make sure there are no duplicates
 				if((i != j) && (processed.get(i) != processed.get(j))) {
 					temp.add(processed.get(i));
 					break;
 				}
 			}
 		}
-		Collections.sort(temp);
+		Collections.sort(temp); //sort the data numerically
 		for(int i = 0; i < temp.size() - 1; i++) {
 			System.out.print(temp.get(i) + ", ");
 		}
 		System.out.println(temp.get(temp.size() - 1) + ".");
-		//System.out.println(".");
-	}
-	
-	private static void initializeRemainingRooms(ArrayList<Integer> remaining) {
-		for(int i = 1; i < (k * k); i++) {
-			remaining.add(i);
-		}
 	}
 	
 	private static void calculateMinWorkToOpenAllRooms() {
 		int n = 0;
+		processedRooms = new ArrayList<Integer>();
 		
 		System.out.println("\nThe minimum amount of work necessary to open " +
 						   "doors so that all rooms are accessable is: " + n);
