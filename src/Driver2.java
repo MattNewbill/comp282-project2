@@ -27,6 +27,7 @@ public class Driver2 {
 		initializeSpookiness();
 		blockedDoors();
 		calculateMinWorkBetweenTwoRooms();
+		calculateReachableRooms();
 		
 	}
 
@@ -69,7 +70,7 @@ public class Driver2 {
 		ArrayList<Integer> processed = new ArrayList<Integer>();
 		ArrayList<Integer> remaining = new ArrayList<Integer>();
 		visited.add(0); //Starts at the entrance which is index 0
-		//initializeRemainingRooms(remaining);
+		initializeRemainingRooms(remaining);
 		
 		System.out.print("The reachable rooms are: ");
 		
@@ -108,13 +109,17 @@ public class Driver2 {
 				}
 			}
 		}
+		for(int i = 0; i < temp.size(); i++) {
+			System.out.print(temp.get(i) + ", ");
+		}
+		System.out.println(".");
 	}
 	
-	/*private static void initializeRemainingRooms(ArrayList<Integer> remaining) {
+	private static void initializeRemainingRooms(ArrayList<Integer> remaining) {
 		for(int i = 1; i < (k * k); i++) {
 			remaining.add(i);
 		}
-	}*/
+	}
 	
 	private static void calculateMinWorkToOpenAllRooms() {
 		int n = 0;
