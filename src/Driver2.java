@@ -6,6 +6,7 @@
  * Spring 2013
  * Driver2 Class
  */
+import java.util.*;
 import java.io.*;
 import java.util.*;
 public class Driver2 {
@@ -14,6 +15,11 @@ public class Driver2 {
 	private static Room theRooms[];
 	private static int k;
 	
+	/**
+	 * 
+	 * @param args
+	 * @throws FileNotFoundException
+	 */
 	public static void main(String[] args) throws FileNotFoundException{
 		System.out.println("Welcome to castle helper.\n");
 		File inputFile = new File("sample.txt");
@@ -23,7 +29,9 @@ public class Driver2 {
 		
 	}
 
-	/** Read (from the data file) and set the spookiness for each room */
+	/**
+	 * Read (from the data file) and set the spookiness for each room
+	 */
 	private static void initializeSpookiness() {
 		String tempSize = screen.nextLine(); //pull out K from file
 		tempSize = tempSize.trim();
@@ -38,7 +46,9 @@ public class Driver2 {
 		}
 	}
 	
-	/** Remove the blocked off doorways */
+	/**
+	 * Remove the blocked off doorways
+	 */
 	private static void blockedDoors() {
 		while(screen.hasNext()) {
 			String tempBlockedDoor = screen.nextLine();
@@ -50,11 +60,60 @@ public class Driver2 {
 		}
 	}
 	
+	/**
+	 * Finds all the rooms that can be reached
+	 */
 	private static void calculateReachableRooms() {
-		Queue<Integer> visited = new Queue<Integer>();
+		ArrayDeque<Integer> visited = new ArrayDeque<Integer>();
+		ArrayList<Integer> processed = new ArrayList<Integer>();
+		ArrayList<Integer> remaining = new ArrayList<Integer>();
+		visited.add(0); //Starts at the entrance which is index 0
+		//initializeRemainingRooms(remaining);
 		
-		System.out.println("The reachable rooms are: " + ".\n");
+		System.out.print("The reachable rooms are: ");
+		
+		while(!visited.isEmpty()) { //while there are items still to be visited
+			ArrayList<Integer> adjacentRooms = theRooms[visited.peek()].getValidDoors();
+			addAdjacent(adjacentRooms, visited);
+			processed.add(visited.peek()); //the first visited room is now finished
+			visited.remove(); //delete the first visited from "visited"
+		}
+		printProcessedRooms(processed);
 	}
+	
+	/**
+	 * Adds the array of adjacent rooms into the "visited" queue
+	 * @param adjacent
+	 * @param visited
+	 */
+	private static void addAdjacent(ArrayList<Integer> adjacent, 
+									ArrayDeque<Integer> visited) {
+		for(int i = 0; i < adjacent.size(); i++) {
+			visited.push(i);
+		}
+	}
+	
+	/**
+	 * Indexes through the "processed" array and makes sure there are no
+	 * duplicates.  Then it prints them.
+	 * @param processed
+	 */
+	private static void printProcessedRooms(ArrayList<Integer> processed) {
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		for(int i = 0; i < processed.size(); i++) {
+			for(int j = 0; j < processed.size(); j++) {
+				if((i != j) && (processed.get(i) != processed.get(j))) {
+					temp.add(processed.get(i));
+				}
+			}
+		}
+	}
+	
+	/*private static void initializeRemainingRooms(ArrayList<Integer> remaining) {
+		for(int i = 1; i < (k * k); i++) {
+			remaining.add(i);
+		}
+	}*/
 	
 	private static void calculateMinWorkToOpenAllRooms() {
 		int n = 0;
