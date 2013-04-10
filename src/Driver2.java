@@ -135,7 +135,7 @@ public class Driver2 {
 	}
 
 	private static int calculateMinWork(int from, int to){
-	    if(from %2 == 0)
+	    if(from %2 == 0)//for testing print purposes
 	    return 0;
 	    return 11;
 	}
