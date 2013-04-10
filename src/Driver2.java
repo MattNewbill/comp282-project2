@@ -26,9 +26,11 @@ public class Driver2 {
 		screen = new Scanner(inputFile);
 		initializeSpookiness();
 		blockedDoors();
-		calculateReachableRooms();
+		//calculateReachableRooms();
+		calculateMinWorkToOpenAllRooms();
 		calculateMinWorkBetweenTwoRooms();
-		
+		calculateTotalSpookiness();
+		calculateMaxSpookiness();
 	}
 
 	/**
@@ -138,7 +140,7 @@ public class Driver2 {
 	private static void calculateMinWorkToOpenAllRooms() {
 		int n = 0;
 		
-		System.out.println("The minimum amount of work necessary to open " +
+		System.out.println("\nThe minimum amount of work necessary to open " +
 						   "doors so that all rooms are accessable is: " + n);
 		
 	}
@@ -148,7 +150,7 @@ public class Driver2 {
 		for(int col = 0; col<k*k; col++)
 		    for(int row = 0; row<k*k; row++)
 			result[row][col] = calculateMinWork(row,col);
-		System.out.println("Minimum amount of work to move between " +
+		System.out.println("\nMinimum amount of work to move between " +
 				"a pair of rooms:");
 		printTable(result);
 	}
@@ -160,13 +162,31 @@ public class Driver2 {
 	}
 	
 	private static void calculateTotalSpookiness() {
-		// TODO Auto-generated method stub
-		
+	    int[][] result = new int[k*k][k*k];
+		for(int col = 0; col<k*k; col++)
+		    for(int row = 0; row<k*k; row++)
+			result[row][col] = calculateTotalSpookiness(row,col);
+		System.out.println("\nTotal spookiness to move between" +
+				" a pair of rooms:");
+		printTable(result);
+	}
+	
+	private static int calculateTotalSpookiness(int from, int to){
+	    return 0;
 	}
 
 	private static void calculateMaxSpookiness() {
-		// TODO Auto-generated method stub
-		
+	    int[][] result = new int[k*k][k*k];
+		for(int col = 0; col<k*k; col++)
+		    for(int row = 0; row<k*k; row++)
+			result[row][col] = calculateMaxSpookiness(row,col);
+		System.out.println("\nMax spookiness to move between a " +
+				"pair of rooms:");
+		printTable(result);
+	}
+	
+	private static int calculateMaxSpookiness(int from,int to){
+	    return 0;
 	}
 	
 	private static void printTable(int[][] result) {
