@@ -26,6 +26,7 @@ public class Driver2 {
 		screen = new Scanner(inputFile);
 		initializeSpookiness();
 		blockedDoors();
+		calculateMinWorkBetweenTwoRooms();
 		
 	}
 
@@ -124,7 +125,19 @@ public class Driver2 {
 	}
 	
 	private static void calculateMinWorkBetweenTwoRooms() {
-		
+		int[][] result = new int[k*k][k*k];
+		for(int col = 0; col<k*k; col++)
+		    for(int row = 0; row<k*k; row++)
+			result[row][col] = calculateMinWork(row,col);
+		System.out.println("Minimum amount of work to move between " +
+				"a pair of rooms:");
+		printTable(result);
+	}
+
+	private static int calculateMinWork(int from, int to){
+	    if(from %2 == 0)
+	    return 0;
+	    return 11;
 	}
 	
 	private static void calculateTotalSpookiness() {
@@ -135,6 +148,20 @@ public class Driver2 {
 	private static void calculateMaxSpookiness() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private static void printTable(int[][] result) {
+	    for(int row = 0; row<k*k; row++){
+		for(int col = 0; col<k*k; col++){
+		    if(result[row][col] == -1)
+			System.out.printf("%2s ","XX");
+		    else
+			System.out.printf("%2d ",result[row][col]);
+		}
+	    System.out.println();
+	    }
+		    
+	    
 	}
 
 }
