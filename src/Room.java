@@ -81,6 +81,21 @@ public class Room {
 	return spookiness;
     }
     
+    /**
+     * Removes door by setting the doors from/to to -1
+     * -1 is a flag that says the door has been deleted
+     * @param doorToBeRemoved - this is the int index of the room 
+     * you want to delete
+     */
+    public void removeDoor(int doorToBeRemoved) {
+	for(int i = 0; i<adjacentDoors.length; i++)
+	    if(adjacentDoors[i].getTo() == doorToBeRemoved){
+		adjacentDoors[i].setTo(-1);
+		adjacentDoors[i].setFrom(-1);
+	    }
+	    
+    }
+    
     /*
      * Setters
      */
