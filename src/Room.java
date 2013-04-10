@@ -6,6 +6,7 @@
  * Spring 2013
  * Driver2 Class
  */
+import java.util.*;
 
 /**
  * A Room consists of a level of spookiness and 6 adjacent doors.
@@ -94,6 +95,20 @@ public class Room {
 		adjacentDoors[i].setFrom(-1);
 	    }
 	    
+    }
+    
+    /**
+     * This will calculate the index of the rooms in which this Room can reach
+     * @return - array of ints which represent index of the room in 
+     * which it can reach
+     */
+    public ArrayList<Integer> getValidDoors() {
+	ArrayList<Integer> result = new ArrayList<Integer>();
+	for(int i=0; i<6; i++){
+	    if(adjacentDoors[i].getTo() != -1)
+		result.add(adjacentDoors[i].getTo());
+	}
+	return result;
     }
     
     /*
