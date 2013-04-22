@@ -161,10 +161,23 @@ public class Driver2 {
 	}
 	
 	private static void calculateMinWorkToOpenAllRooms() {
-		int n = 0;
-		processedRooms = new ArrayList<Integer>();
-		
-		System.out.println("\nThe minimum amount of work necessary to open " +
+	    int n = 0;
+	    PriorityQueue<Door> couldVisit = new PriorityQueue<Door>();
+	    ArrayList<Room> alreadyVisited = new ArrayList<Room>();
+	    ArrayList<Door> firstRoomsDoors = theRooms[0].getValidDoorsObj();
+	    for(int i=0; i<firstRoomsDoors.size();i++)//adds first rooms doors to could visit list
+		couldVisit.add(firstRoomsDoors.get(i));
+	    while(!couldVisit.isEmpty()){
+		Door door = couldVisit.poll();
+		if(!alreadyVisited.contains(theRooms[door.getTo()])){
+		    n+= door.getWeight();
+		    alreadyVisited.add(theRooms[door.getTo()]);
+		    Room newRoom = theRooms[door.getTo()];
+		    ArrayList<Door> newDoors = newRoom.getValidDoorsObj();
+		    couldVisit.addAll(newDoors);
+		}		    
+	    }		
+	    System.out.println("\nThe minimum amount of work necessary to open " +
 						   "doors so that all rooms are accessable is: " + n);
 		
 	}

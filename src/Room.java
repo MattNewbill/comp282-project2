@@ -36,19 +36,19 @@ public class Room {
 	nextRoom = (i-1>=0 && i-1<k*k && i%k!=0) ? i-1 : -1;
 	adjacentDoors[0] = new Door(i, nextRoom, Math.abs(i-nextRoom));
 	//sets top door
-	nextRoom = (i-k>=0 && i<k*k) ? i-k : -1;
+	nextRoom = (i-k>=0 && i-k<k*k) ? i-k : -1;
 	adjacentDoors[1] = new Door(i, nextRoom, Math.abs(i-nextRoom));
 	//sets top right door
-	nextRoom = (i-k+1>=0 && i<k*k && (i+1)%k!=0) ? i-k+1 : -1;
+	nextRoom = (i-k+1>=0 && i-k+1<k*k && (i+1)%k!=0) ? i-k+1 : -1;
 	adjacentDoors[2] = new Door(i, nextRoom, Math.abs(i-nextRoom));
 	//sets bottom left door
-	nextRoom = (i+k-1>=0 && i<k*k && i%k!=0) ? i+k-1 : -1;
+	nextRoom = (i+k-1>=0 && i+k<k*k && i%k!=0) ? i+k-1 : -1;
 	adjacentDoors[3] = new Door(i, nextRoom, Math.abs(i-nextRoom));
 	//sets bottom door
-	nextRoom = (i+k>=0 && i<k*k) ? i+k : -1;
+	nextRoom = (i+k>=0 && i+k<k*k) ? i+k : -1;
 	adjacentDoors[4] = new Door(i, nextRoom, Math.abs(i-nextRoom));
 	//sets bottom right door
-	nextRoom = (i+1>=0 && i<k*k && (i+1)%k!=0) ? i+1 : -1;
+	nextRoom = (i+1>=0 && i+1<k*k && (i+1)%k!=0) ? i+1 : -1;
 	adjacentDoors[5] = new Door(i, nextRoom, Math.abs(i-nextRoom));
     }
     /*
@@ -107,6 +107,15 @@ public class Room {
 	for(int i=0; i<6; i++){
 	    if(adjacentDoors[i].getTo() != -1)
 		result.add(adjacentDoors[i].getTo());
+	}
+	return result;
+    }
+    
+    public ArrayList<Door> getValidDoorsObj() {
+	ArrayList<Door> result = new ArrayList<Door>();
+	for(int i=0; i<6; i++){
+	    if(adjacentDoors[i].getTo() != -1)
+		result.add(adjacentDoors[i]);
 	}
 	return result;
     }

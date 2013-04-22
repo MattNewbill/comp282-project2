@@ -13,7 +13,7 @@
  * @author Matt
  *
  */
-public class Door {
+public class Door implements Comparable<Door>{
     int weight;
 	int from;
     int to;
@@ -42,4 +42,14 @@ public class Door {
 	public void setTo(int to) {
 		this.to = to;
 	}
+	public int compareTo(Door comp){
+	    //if greater than or equal
+	    if(this.weight-comp.weight>=0){
+		return 1;
+	    }
+	    // if less than
+	    else 
+		return -1;
+	}
+	
 }
