@@ -167,6 +167,7 @@ public class Driver2 {
 	    ArrayList<Door> firstRoomsDoors = theRooms[0].getValidDoorsObj();
 	    for(int i=0; i<firstRoomsDoors.size();i++)//adds first rooms doors to could visit list
 		couldVisit.add(firstRoomsDoors.get(i));
+	    alreadyVisited.add(theRooms[0]);
 	    while(!couldVisit.isEmpty()){
 		Door door = couldVisit.poll();
 		if(!alreadyVisited.contains(theRooms[door.getTo()])){
