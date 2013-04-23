@@ -194,9 +194,58 @@ public class Driver2 {
 	}
 
 	private static int calculateMinWork(int from, int to){
-	    if(from %2 == 0)//for testing print purposes
-	    return 0;
-	    return 11;
+		int[] shortestPath = new int[k*k];
+		boolean[] shortestDone = new boolean[k*k];
+		for(int i = 0; i<k*k; i++){
+			shortestDone[i] = false;
+			if(i==from)
+				shortestPath[i] = 0;
+			else
+				shortestPath[i] = 9999;
+		}
+		while(!shortestDone[to]){
+			//find smallest distance of a not done node
+			int i = getSmallestDistance(shortestPath, shortestDone);
+			updateNeighbors(shortestPath, shortestDone, i);
+		}
+	    return shortestPath[to];
+	}
+	
+	/**
+	 * updates neighboring rooms to its baseWeight plus the doors
+	 * length only if its less than the shortest path that is already there.
+	 * @param shortestPath
+	 * @param shortestDone
+	 * @param index
+	 */
+	private static void updateNeighbors(int[] shortestPath,
+							boolean[] shortestDone, int index){
+		int baseWeight = shortestPath[index];
+		ArrayList<Door> doors = theRooms[index].getValidDoorsObj();
+		for(int i=0; i< doors.size(); i++){
+			int to = doors.get(i).getTo();
+			int weight = doors.get(i).getWeight();
+			if(weight+baseWeight < shortestPath[to])
+				shortestPath[to] = weight+baseWeight;
+		}
+		shortestDone[index] = true;
+	}
+	
+	/**
+	 * Gives you the index of the smallest distance of a node that is not done yet
+	 * @param shortest
+	 * @return returns the smallest index distance of a !done node
+	 * If it returns 1000000 it means you are out of done nodes
+	 */
+	private static int getSmallestDistance(int[] shortestPath,
+											boolean[] shortestDone){
+		int smallestIndex = 1000000;
+		//counts down so that ties are broken with the smallest node number
+		for(int i = k*k-1; i >= 0; i--){
+			if(shortestPath[i] < smallestIndex && !shortestDone[i])
+				smallestIndex = i;
+		}
+		return smallestIndex;
 	}
 	
 	private static void calculateTotalSpookiness() {
@@ -230,7 +279,7 @@ public class Driver2 {
 	private static void printTable(int[][] result) {
 	    for(int row = 0; row<k*k; row++){
 		for(int col = 0; col<k*k; col++){
-		    if(result[row][col] == -1)
+		    if(result[row][col] == -1 || result[row][col] == 9999)
 			System.out.printf("%2s ","XX");
 		    else
 			System.out.printf("%2d ",result[row][col]);
